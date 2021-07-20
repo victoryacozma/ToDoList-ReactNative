@@ -31,6 +31,7 @@ export default function App() {
             })
         }
         else{
+            //changing smth here
             Alert.alert('OOPS', 'todos should be over 3 chars long', [
                 {text: 'Understood', onPress: () => console.log('alert closed')}
             ])
