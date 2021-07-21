@@ -3,46 +3,51 @@ import { StyleSheet, Text, View, FlatList, Alert, TouchableWithoutFeedback, Keyb
 import Header from '../components/Header'
 import ToDoItem from '../components/ToDoItem'
 import AddToDo from '../components/AddToDo'
-import Sandbox from '../components/Sandbox'
+import HookAddToDoContainer from '../components/HookAddToDoContainer';
+import HookDeleteToDoContainer from '../components/HookDeleteToDoContainer';
+import { useDispatch, useSelector } from 'react-redux'
 
 
-export default function App() {
+export default function ToDoList() {
 
-    const [todos, setTodos] = useState([
-        { text: 'buy coffee', key: '1' },
-        { text: 'create an app', key: '2' },
-        { text: 'play on the switch', key: '3' }
-    ]);
+    const todos = useSelector(state => state.todos.todoList)
 
-    const pressHandler = (key) => {
-        setTodos((prevTodos) => {
-            return prevTodos.filter(todo => todo.key != key)
-        })
-    }
+    // const [todos, setTodos] = useState([
+    //     { text: 'buy coffee', key: '1' },
+    //     { text: 'create an app', key: '2' },
+    //     { text: 'play on the switch', key: '3' }
+    // ]);
 
-    const submitHandler = (text) => {
 
-        if(text.length > 3) {
-            setTodos((prevTodos) => {
-                return [
-                    {text: text, key: Math.random().toString() },
-                    ...prevTodos
-                ];
-            })
-        }
-        else{
-            //changing smth here
-            Alert.alert('OOPS', 'todos should be over 3 chars long', [
-                {text: 'Understood', onPress: () => console.log('alert closed')}
-            ])
-        }
+    // //deletefunction
+    // const pressHandler = (key) => {
+    //     setTodos((prevTodos) => {
+    //         return prevTodos.filter(todo => todo.key != key)
+    //     })
+    // }
+
+    // //add new todo
+    // const submitHandler = (text) => {
+
+    //     if(text.length > 3) {
+    //         setTodos((prevTodos) => {
+    //             return [
+    //                 {text: text, key: Math.random().toString() },
+    //                 ...prevTodos
+    //             ];
+    //         })
+    //     }
+    //     else{
+    //         //changing smth here
+    //         Alert.alert('OOPS', 'todos should be over 3 chars long', [
+    //             {text: 'Understood', onPress: () => console.log('alert closed')}
+    //         ])
+    //     }
         
-    }
+    // }
 
 
     return (
-        //Sandbox
-        //<Sandbox></Sandbox>
         <TouchableWithoutFeedback onPress = {() => {
             Keyboard.dismiss();
             console.log('Dissmissed keyboard')
@@ -51,12 +56,14 @@ export default function App() {
         <View style={styles.container}>
             <Header/> 
             <View style={styles.content}>
-                <AddToDo submitHandler = {submitHandler}/>
+                {/* <AddToDo submitHandler = {submitHandler}/> */}
+                <HookAddToDoContainer/>
                 <View style={styles.list}>
                     <FlatList
                         data={todos}
                         renderItem={({ item }) => (
-                            <ToDoItem item = {item} pressHandler = {pressHandler}/>
+                            // <ToDoItem item = {item} pressHandler = {pressHandler}/>
+                            <HookDeleteToDoContainer item = {item}/>
                         )}
                     />
                 </View>
