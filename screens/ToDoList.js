@@ -5,7 +5,9 @@ import ToDoItem from '../components/ToDoItem'
 import AddToDo from '../components/AddToDo'
 import HookAddToDoContainer from '../components/HookAddToDoContainer';
 import HookDeleteToDoContainer from '../components/HookDeleteToDoContainer';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+
 
 
 export default function ToDoList() {
@@ -43,35 +45,35 @@ export default function ToDoList() {
     //             {text: 'Understood', onPress: () => console.log('alert closed')}
     //         ])
     //     }
-        
+
     // }
 
 
     return (
-        <TouchableWithoutFeedback onPress = {() => {
+        <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
             console.log('Dissmissed keyboard')
 
         }}>
-        <View style={styles.container}>
-            <Header/> 
-            <View style={styles.content}>
-                {/* <AddToDo submitHandler = {submitHandler}/> */}
-                <HookAddToDoContainer/>
-                <View style={styles.list}>
-                    <FlatList
-                        data={todos}
-                        renderItem={({ item }) => (
-                            // <ToDoItem item = {item} pressHandler = {pressHandler}/>
-                            <HookDeleteToDoContainer item = {item}/>
-                        )}
-                    />
+            <View style={styles.container}>
+                <Header />
+                <View style={styles.content}>
+                    {/* <AddToDo submitHandler = {submitHandler}/> */}
+                    <HookAddToDoContainer />
+                    <View style={styles.list}>
+                        <FlatList
+                            data={todos}
+                            renderItem={({ item }) => (
+                                // <ToDoItem item = {item} pressHandler = {pressHandler}/>
+                                <HookDeleteToDoContainer item={item} />
+                            )}
+                        />
+                    </View>
                 </View>
             </View>
-        </View>
         </TouchableWithoutFeedback>
     );
-    
+
 
 }
 
@@ -82,7 +84,7 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 1,
-       // backgroundColor : 'pink',
+        // backgroundColor : 'pink',
         padding: 40,
     },
     list: {
@@ -90,4 +92,4 @@ const styles = StyleSheet.create({
         marginTop: 20,
         //backgroundColor : 'yellow',
     },
-}); 
+});

@@ -1,17 +1,27 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteToDo } from '../actions/todo';
 import { StyleSheet, Text, TouchableOpacity} from 'react-native';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 function HookDeleteToDoContainer({item}) {
     const listOfToDos = useSelector(state => state.todos.todoList)
     const dispatch = useDispatch();
+    const [checkboxState, setCheckboxState] = useState(false);
     
     return (
-        <TouchableOpacity onPress = {() => dispatch(deleteToDo(item.key))}>
+        // <TouchableOpacity onPress = {() => dispatch(deleteToDo(item.key))}>
             
-            <Text style = {styles.item}> {item.text}</Text>
-        </TouchableOpacity>
+        //     <Text style = {styles.item}> {item.text}</Text>
+        // </TouchableOpacity>
+        <BouncyCheckbox
+                    style={{ marginTop: 16 }}
+                    //ref={(ref: any) => (bouncyCheckboxRef = ref)}
+                    isChecked={checkboxState}
+                    text={item.text}
+                    disableBuiltInState
+                    onPress={() => setCheckboxState(!checkboxState)}
+                />
     )
 }
 
